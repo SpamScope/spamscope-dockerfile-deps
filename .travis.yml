@@ -1,0 +1,22 @@
+---
+sudo: required
+
+services:
+    - docker
+
+before_install:
+    - docker build -t $DOCKER_USERNAME/spamscope-deps .;
+
+# command to run tests
+script:
+    - docker run --rm $DOCKER_USERNAME/spamscope-deps thug -V;
+    - docker run --rm $DOCKER_USERNAME/spamscope-deps storm version;
+
+after_success:
+    - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    - docker push $DOCKER_USERNAME/spamscope-deps;
+
+notifications:
+    email: false
+    slack:
+        secure:
