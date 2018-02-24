@@ -9,6 +9,7 @@ ARG TIKA_VER="1.16"
 ENV FAUP_PATH="/opt/faup-master" \
     LEIN_PATH="/usr/local/bin/lein" \
     LEIN_ROOT="yes" \
+    RAR_PATH="/opt/rarlinux.tar.gz" \
     TIKA_APP_JAR="/opt/tika-app-${TIKA_VER}.jar" \
     V8_HOME="/opt/pyv8/build/v8_r19632"
 
@@ -40,7 +41,6 @@ RUN set -ex; \
         python-pip \
         python-setuptools \
         spamassassin \
-        unrar-free \
         unzip \
         yara \
         zlib1g-dev; \
@@ -53,6 +53,8 @@ RUN set -ex; \
     curl -So ${LEIN_PATH} https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein && chmod 755 ${LEIN_PATH} && lein version; \
 # Apache Tika install for SpamScope
     curl -So ${TIKA_APP_JAR} https://archive.apache.org/dist/tika/tika-app-${TIKA_VER}.jar; \
+# Unrar install
+    curl -So ${RAR_PATH} https://www.rarlab.com/rar/rarlinux-x64-5.5.0.tar.gz && tar -zxvf ${RAR_PATH} && cp /opt/rar/*rar /usr/local/bin; \
 # Faup install for SpamScope
     git clone https://github.com/stricaud/faup.git ${FAUP_PATH} && mkdir -p $FAUP_PATH/build && cd $FAUP_PATH/build && cmake .. && make && make install && echo '/usr/local/lib' | tee -a /etc/ld.so.conf.d/faup.conf && ldconfig; \
 # Thug install for Spamscope
