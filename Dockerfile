@@ -1,8 +1,6 @@
 ARG APACHE_STORM_VER="latest"
 FROM fmantuano/apache-storm:${APACHE_STORM_VER}
 
-MAINTAINER Fedele Mantuano "mantuano.fedele@gmail.com"
-
 # environment variables
 ARG TIKA_VER="1.16" 
 
