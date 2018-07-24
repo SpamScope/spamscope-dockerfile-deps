@@ -46,7 +46,7 @@ RUN set -ex; \
     apt-get clean; \
     rm -rf /var/lib/apt/lists/*; \
 # upgrade python tools
-    pip install --upgrade pip setuptools; \
+    pip install --upgrade setuptools; \
 # lein install for streamparse
     curl -So ${LEIN_PATH} https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein && chmod 755 ${LEIN_PATH} && lein version; \
 # Apache Tika install for SpamScope
