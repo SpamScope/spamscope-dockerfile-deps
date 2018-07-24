@@ -5,7 +5,7 @@ services:
     - docker
 
 before_install:
-    - docker build -t $DOCKER_USERNAME/spamscope-deps .;
+    - docker build --build-arg TIKA_VER=$TIKA_VER --build-arg APACHE_STORM_VER=$APACHE_STORM_VER -t $DOCKER_USERNAME/spamscope-deps .;
 
 # command to run tests
 script:
